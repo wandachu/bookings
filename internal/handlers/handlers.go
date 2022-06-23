@@ -1,10 +1,12 @@
 package handlers
 
 import (
+	"encoding/json"
 	"fmt"
-	"github.com/wandachu/bookings/pkg/config"
-	"github.com/wandachu/bookings/pkg/models"
-	"github.com/wandachu/bookings/pkg/render"
+	"github.com/wandachu/bookings/internal/config"
+	"github.com/wandachu/bookings/internal/models"
+	"github.com/wandachu/bookings/internal/render"
+	"log"
 	"net/http"
 )
 
@@ -73,11 +75,31 @@ func (m *Repository) Availability(w http.ResponseWriter, r *http.Request) {
 
 // PostAvailability is the post availability page handler
 func (m *Repository) PostAvailability(w http.ResponseWriter, r *http.Request) {
-	// w.Write([]byte("Posted to search availability"))
 	start := r.Form.Get("start")
 	end := r.Form.Get("end")
 
 	w.Write([]byte(fmt.Sprintf("start date is %s and end is %s", start, end)))
+}
+
+type jsonResponse struct {
+	OK      bool   `json:"ok"`
+	Message string `json:"message"`
+}
+
+// AvailabilityJSON handles the request for availability and send Json response
+func (m *Repository) AvailabilityJSON(w http.ResponseWriter, r *http.Request) {
+	resp := jsonResponse{
+		OK:      false,
+		Message: "Available",
+	}
+
+	out, err := json.MarshalIndent(resp, "", "     ")
+	if err != nil {
+		log.Println(err)
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(out)
 }
 
 // Contact is the contact page handler
