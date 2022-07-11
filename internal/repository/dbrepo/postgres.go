@@ -113,6 +113,7 @@ func (m *postgresDBRepo) SearchAvailabilityForAllRooms(start, end time.Time) ([]
 			&room.ID,
 			&room.RoomName,
 		)
+
 		if err != nil {
 			return rooms, err
 		}
