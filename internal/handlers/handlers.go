@@ -12,7 +12,6 @@ import (
 	"github.com/wandachu/bookings/internal/render"
 	"github.com/wandachu/bookings/internal/repository"
 	"github.com/wandachu/bookings/internal/repository/dbrepo"
-	"log"
 	"net/http"
 	"strconv"
 	"time"
@@ -219,7 +218,6 @@ func (m *Repository) AvailabilityJSON(w http.ResponseWriter, r *http.Request) {
 	roomID, _ := strconv.Atoi(r.Form.Get("room_id"))
 
 	available, _ := m.DB.SearchAvailabilityByDatesByRoomID(startDate, endDate, roomID)
-	log.Println(startDate, endDate, roomID, available)
 	resp := jsonResponse{
 		OK:        available,
 		Message:   "",
