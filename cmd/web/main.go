@@ -32,15 +32,8 @@ func main() {
 
 	defer db.SQL.Close()
 	defer close(app.MaliChan)
+	fmt.Println("Starting mail listener...")
 	listenForMail()
-
-	msg := models.MailData{
-		To:      "john@do.ca",
-		From:    "me@here.com",
-		Subject: "SubjectHere",
-		Content: "Content here",
-	}
-	app.MaliChan <- msg
 
 	fmt.Println(fmt.Sprintf("Starting application on port %s", portNumber))
 
