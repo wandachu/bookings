@@ -44,6 +44,12 @@ func TestMain(m *testing.M) {
 
 	app.Session = session
 
+	mailChan := make(chan models.MailData)
+	app.MaliChan = mailChan
+	defer close(mailChan)
+
+	listenForMail() // must mock this
+
 	tc, err := CreateTestTemplateCache()
 	if err != nil {
 		log.Fatal("Cannot create template cache")
@@ -130,4 +136,12 @@ func CreateTestTemplateCache() (map[string]*template.Template, error) {
 		myCache[name] = ts
 	}
 	return myCache, nil
+}
+
+func listenForMail() {
+	go func() {
+		for {
+			_ = <-app.MaliChan
+		}
+	}()
 }
