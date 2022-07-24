@@ -39,11 +39,12 @@ func routes(app *config.AppConfig) http.Handler {
 	mux.Handle("/static/*", http.StripPrefix("/static", fileServer))
 
 	mux.Route("/admin", func(mux chi.Router) { // protected secure handler
-		// mux.Use(Auth)
+		// mux.Use(Auth) TODO
 		mux.Get("/dashboard", handlers.Repo.AdminDashboard) // /admin/dashboard
 		mux.Get("/reservations-new", handlers.Repo.AdminNewReservations)
 		mux.Get("/reservations-all", handlers.Repo.AdminAllReservations)
 		mux.Get("/reservations-calendar", handlers.Repo.AdminReservationsCalendar)
+		mux.Post("/reservations-calendar", handlers.Repo.AdminPostReservationsCalendar)
 		mux.Get("/reservations/{src}/{id}", handlers.Repo.AdminShowReservation)
 		mux.Get("/process-reservations/{src}/{id}", handlers.Repo.AdminProcessReservation)
 		mux.Get("/delete-reservations/{src}/{id}", handlers.Repo.AdminDeleteReservation)
