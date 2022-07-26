@@ -2,7 +2,7 @@
 
 ### This is a Bed-and-Breakfast booking web application that allows guests to search for available rooms and make reservations, and property owners to manage reservations. 
 
-#### You may find and download a video demo [here](https://github.com/wandachu/bookings/demo/)
+#### You may find and download a video demo [here](https://github.com/wandachu/bookings/tree/main/demo)
 
 - Built in Go version 1.18
 - Uses the [chi router](https://github.com/go-chi/chi/)
